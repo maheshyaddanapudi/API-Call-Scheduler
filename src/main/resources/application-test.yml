@@ -1,2 +1,64 @@
+STATIC_SALT: DNVVAOVFAODVNUAS
+INIT_VECTOR: AODVNUASDNVVAOVF
+USER_TIMEZONE: IST
+AUTO_CLEANUP_ENABLED: true
+AUTO_CLEANUP_THRESHOLD_NO_OF_DAYS: 30
+
+user:
+  timeZone: ${USER_TIMEZONE}
+
+auto-cleanup:
+  enabled: ${AUTO_CLEANUP_ENABLED}
+  delete-records-older-than-days: ${AUTO_CLEANUP_THRESHOLD_NO_OF_DAYS}
+
 server:
   port: 8880
+
+spring:
+  application:
+    name: API Call Scheduler
+  jackson:
+    default-property-inclusion: NON_NULL
+  jpa:
+    hibernate:
+      ddl-auto: none
+  quartz:
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          threadPool:
+            threadCount: 1000
+    wait-for-jobs-to-complete-on-shutdown: true
+    scheduler-name: ${spring.application.name}
+  encryption:
+    static:
+      salt: ${STATIC_SALT}
+    initialization:
+      vector: ${INIT_VECTOR}
+  liquibase:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    org.zalando.logbook: TRACE
+  #pattern:
+  #  console: '[%p ] %d{yyyy-MM-dd HH:mm:ss,SSS} %M - %m%n'
+
+logbook:
+  filter:
+    enabled: true
+  write:
+    level: INFO
+  format:
+    style: splunk
+  exclude: [/, /actuator/**, /v3/api-docs/**, /swagger-ui.html, /swagger-ui/**, /index.html, /images/**, /swagger-ui.js, /lib/**, /css/**]
+  strategy: body-only-if-status-at-least
+  minimum-status: 400
+  obfuscate:
+    headers:
+      - Authorization
+    parameters:
+      - access_token
+      - password
