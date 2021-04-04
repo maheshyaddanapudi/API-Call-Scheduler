@@ -1,0 +1,34 @@
+MYSQL_DATABASE: quartz
+MYSQL_DATABASE_PORT: 3306
+MYSQL_USER: quartz
+MYSQL_PASSWORD: Quartz!23$
+
+# This directory has to be explicitly set to let Embedded MariaDB know the master persistence location.
+# Use embedded/persistence/mariadb4j to have a common persistence location for all embedded components.
+# Default is NONE
+MARIADB4J_DIR: NONE
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    name: ${MYSQL_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+# If dataDir, libDir & baseDir are not set, then the database will not be persistent.
+mariadb4j:
+  dataDir: ${MARIADB4J_DIR}/data
+  libDir: ${MARIADB4J_DIR}/lib
+  baseDir: ${MARIADB4J_DIR}/base
+  port: ${MYSQL_DATABASE_PORT}
+  maxConnections: 100000
+  wait:
+    timeout: 18000000
+  connect:
+    timeout: 31536000
+  deleteBaseAndDataDirOnShutdown: true
+  security:
+    disabled: true

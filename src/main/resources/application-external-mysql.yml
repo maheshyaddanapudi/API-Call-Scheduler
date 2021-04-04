@@ -1,0 +1,15 @@
+MYSQL_DATABASE_HOST: localhost
+MYSQL_DATABASE_PORT: 3306
+MYSQL_DATABASE: quartz
+MYSQL_USER: quartz
+MYSQL_PASSWORD: Quartz@1234
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_DATABASE_HOST}:${MYSQL_DATABASE_PORT}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&autoReconnect=true&verifyServerCertificate=false&useSSL=false&allowPublicKeyRetrieval=true&useMysqlMetadata=true
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
