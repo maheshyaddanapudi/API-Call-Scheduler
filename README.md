@@ -76,13 +76,13 @@ SonarQube: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/meas
 | Docker   | ![Docker](https://github.com/maheshyaddanapudi/APICallsScheduler/workflows/Docker/badge.svg?branch=main) |
 | Docker Image CI   | ![Docker Image CI](https://github.com/maheshyaddanapudi/APICallsScheduler/workflows/Docker%20Image%20CI/badge.svg?branch=main) |
 
-Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/APICallsScheduler" target="_blank">DockerHub here</a>
+Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/api-calls-scheduler" target="_blank">DockerHub here</a>
 
 Image is equipped with basic tools like vim, curl, wget, net-tools(telnet), iputils-ping
 
 To pull the image :
 
-	docker pull zzzmahesh/APICallsScheduler
+	docker pull zzzmahesh/api-calls-scheduler
 
 ## Run API Calls Scheduler : Java
 
