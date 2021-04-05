@@ -220,9 +220,9 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                 } catch(HttpClientErrorException e) {
 
                     if(e.getStatusCode().compareTo(HttpStatus.CONFLICT) == 0)
-                        log.warn("-- triggerWorkflow\n"+e.getMessage());
+                        log.warn("HTTP ERROR Executing Job {} : {}", jobExecutionContext.getJobDetail().getKey(),e.getMessage());
                     else
-                        log.error("-- triggerWorkflow\n"+e.getMessage());
+                        log.error("HTTP ERROR Executing Job {} : {}", jobExecutionContext.getJobDetail().getKey(),e.getMessage());
                     runLog = runLog+e.getMessage();
 
                     acqsExecHist.setQuartzExecutionStatus("FAILED");
@@ -231,6 +231,9 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                     acqsExecHist = this.acqsExecHistRepository.saveAndFlush(acqsExecHist);
                 }
                 catch (Exception e){
+
+                    log.error("Unhandled ERROR Executing Job {} : {}", jobExecutionContext.getJobDetail().getKey(),e.getMessage());
+
                     runLog = runLog+e.getMessage();
 
                     acqsExecHist.setQuartzExecutionStatus("FATAL");
