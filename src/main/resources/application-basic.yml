@@ -12,7 +12,7 @@ auto-cleanup:
   delete-records-older-than-days: ${AUTO_CLEANUP_THRESHOLD_NO_OF_DAYS}
 
 server:
-  port: 8888
+  port: 8880
 
 spring:
   application:
