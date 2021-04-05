@@ -26,7 +26,6 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(exclude = {
-		DataSourceAutoConfiguration.class,
 		SecurityAutoConfiguration.class,
 		ManagementWebSecurityAutoConfiguration.class,
 		UserDetailsServiceAutoConfiguration.class,

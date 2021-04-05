@@ -38,6 +38,15 @@ spring:
       vector: ${INIT_VECTOR}
   liquibase:
     enabled: false
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
 
 logging:
   level:

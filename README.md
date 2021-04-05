@@ -69,6 +69,21 @@ SonarQube: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/meas
 | Java CI   | ![Java CI with Maven](https://github.com/maheshyaddanapudi/APICallsScheduler/workflows/Java%20CI%20with%20Maven%20Main/badge.svg?branch=main) |
 | Travis CI   | [![Build Status](https://travis-ci.com/maheshyaddanapudi/APICallsScheduler.svg?branch=main)](https://travis-ci.com/maheshyaddanapudi/APICallsScheduler) |
 
+## Containerization CI (Continuous Integration)
+
+| CI Provider | Status          |
+| ------- | ------------------ |
+| Docker   | ![Docker](https://github.com/maheshyaddanapudi/APICallsScheduler/workflows/Docker/badge.svg?branch=main) |
+| Docker Image CI   | ![Docker Image CI](https://github.com/maheshyaddanapudi/APICallsScheduler/workflows/Docker%20Image%20CI/badge.svg?branch=main) |
+
+Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/APICallsScheduler" target="_blank">DockerHub here</a>
+
+Image is equipped with basic tools like vim, curl, wget, net-tools(telnet), iputils-ping
+
+To pull the image :
+
+	docker pull zzzmahesh/APICallsScheduler
+
 ## Run API Calls Scheduler : Java
 
 		cd <to project root folder>/target
