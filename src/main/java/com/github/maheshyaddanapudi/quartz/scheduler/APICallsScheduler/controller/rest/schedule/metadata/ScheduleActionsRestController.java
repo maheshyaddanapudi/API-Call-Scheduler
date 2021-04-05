@@ -41,7 +41,7 @@ import java.util.UUID;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 @Tag(name = "API Call Quartz Scheduler Metadata", description = "The API provides the interface for create / update or delete a schedule.")
 @CrossOrigin("*")
-@RequestMapping(value = "/api/metadata", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/metadata/schedule", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class ScheduleActionsRestController {
 
@@ -89,7 +89,7 @@ public class ScheduleActionsRestController {
         }
     }
 
-    @GetMapping(value = "/schedule/{scheduleId}", produces = "application/json")
+    @GetMapping(value = "/{scheduleId}", produces = "application/json")
     @Operation(summary = "Provides Schedule Info", description = "Returns JSON formatted Schedule Info", tags = { "metadata" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully returned Schedule Info",
@@ -132,7 +132,7 @@ public class ScheduleActionsRestController {
             @ApiResponse(responseCode = "400", description = "Bad Request with reason", content = @Content()),
             @ApiResponse(responseCode = "406", description = "Duplicate Schedule Name Found.", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal Server Error - Returned when an unexpected error occurs on server side", content = @Content())})
-    @PostMapping(value = "/schedule", produces = "application/json", consumes = "application/json")
+    @PostMapping(produces = "application/json", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<BaseResponseDTO> scheduleExecution(@Valid @RequestBody ScheduleRequest request) {
 
@@ -173,7 +173,7 @@ public class ScheduleActionsRestController {
                     content = @Content(schema = @Schema(implementation = BaseResponseDTO.class))) ,
             @ApiResponse(responseCode = "404", description = "Schedule Id Not Found", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal Server Error - Returned when an unexpected error occurs on server side", content = @Content())})
-    @PatchMapping(value = "/schedule/pause/{scheduleId}", produces = "application/json")
+    @PatchMapping(value = "/pause/{scheduleId}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<BaseResponseDTO> pauseExecution(@PathVariable String scheduleId){
 
@@ -205,7 +205,7 @@ public class ScheduleActionsRestController {
                     content = @Content(schema = @Schema(implementation = BaseResponseDTO.class))) ,
             @ApiResponse(responseCode = "404", description = "Schedule Id Not Found", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal Server Error - Returned when an unexpected error occurs on server side", content = @Content())})
-    @PatchMapping(value = "/schedule/resume/{scheduleId}", produces = "application/json")
+    @PatchMapping(value = "/resume/{scheduleId}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<BaseResponseDTO> resumeExecution(@PathVariable String scheduleId){
 
@@ -237,7 +237,7 @@ public class ScheduleActionsRestController {
                     content = @Content(schema = @Schema(implementation = BaseResponseDTO.class))) ,
             @ApiResponse(responseCode = "404", description = "Schedule Id Not Found", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal Server Error - Returned when an unexpected error occurs on server side", content = @Content())})
-    @DeleteMapping(value = "/schedule/{scheduleId}", produces = "application/json")
+    @DeleteMapping(value = "/{scheduleId}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<BaseResponseDTO> deleteExecution(@Valid @PathVariable String scheduleId){
 
@@ -270,7 +270,7 @@ public class ScheduleActionsRestController {
             @ApiResponse(responseCode = "400", description = "Bad Request with reason", content = @Content()),
             @ApiResponse(responseCode = "406", description = "Schedule Not Found.", content = @Content()),
             @ApiResponse(responseCode = "500", description = "Internal Server Error - Returned when an unexpected error occurs on server side", content = @Content())})
-    @PutMapping(value = "schedule/{scheduleId}", produces = "application/json", consumes = "application/json")
+    @PutMapping(value = "/{scheduleId}", produces = "application/json", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<BaseResponseDTO> updateExecution(@Valid @PathVariable String scheduleId, @Valid @RequestBody ScheduleRequest request) {
 
