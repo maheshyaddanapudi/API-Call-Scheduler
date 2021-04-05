@@ -89,7 +89,7 @@ public class ScheduleActionsRestController {
         }
     }
 
-    @GetMapping(value = "/{scheduleId}", produces = "application/json")
+    @GetMapping(value = "/schedule/{scheduleId}", produces = "application/json")
     @Operation(summary = "Provides Schedule Info", description = "Returns JSON formatted Schedule Info", tags = { "metadata" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully returned Schedule Info",

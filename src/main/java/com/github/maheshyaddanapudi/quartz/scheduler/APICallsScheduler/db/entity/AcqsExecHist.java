@@ -18,7 +18,7 @@ public class AcqsExecHist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HISTORY_ID", updatable = false, nullable = false)
+    @Column(name = "history_id", updatable = false, nullable = false)
     private Long historyId;
 
     @OneToOne
@@ -26,25 +26,25 @@ public class AcqsExecHist {
     @Fetch(FetchMode.SELECT)
     private AcqsSchedMap acqsSchedMap;
 
-    @Column(name = "QRTZ_EXEC_ID", length = 150, nullable = true, unique=true, updatable = false)
+    @Column(name = "qrtz_exec_id", length = 150, nullable = true, unique=true, updatable = false)
     private String qrtzExecId;
 
-    @Column(name = "QRTZ_EXEC_STATUS", length = 45)
+    @Column(name = "qrtz_exec_status", length = 45)
     private String quartzExecutionStatus;
 
     @Lob
-    @Column(name="QRTZ_EXEC_RESP_PAYLOAD_PAYLOAD", nullable = true, length=100000)
+    @Column(name="qrtz_exec_resp_payload_payload", nullable = true, length=100000)
     private byte[] quartzExecutionApiResponsePayload;
 
-    @Column(name = "QRTZ_EXEC_LOG", length = 500, nullable = true, unique=false)
+    @Column(name = "qrtz_exec_log", length = 500, nullable = true, unique=false)
     private String quartzExecutionLog;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "INSERT_TIMESTAMP", nullable = false)
+    @Column(name = "insert_timestamp", nullable = false)
     private Date insertTimestamp;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "UPDATE_TIMESTAMP", nullable = false)
+    @Column(name = "update_timestamp", nullable = false)
     private Date updateTimestamp;
 
     @PrePersist

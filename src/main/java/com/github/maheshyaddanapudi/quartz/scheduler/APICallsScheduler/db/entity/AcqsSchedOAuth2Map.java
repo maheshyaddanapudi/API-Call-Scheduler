@@ -29,7 +29,7 @@ public class AcqsSchedOAuth2Map {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AUTH_MAPPING_ID", updatable = false, nullable = false)
+    @Column(name = "auth_mapping_id", updatable = false, nullable = false)
     private Long authMappingId;
 
     @OneToOne
@@ -37,33 +37,33 @@ public class AcqsSchedOAuth2Map {
     @Fetch(FetchMode.SELECT)
     private AcqsSchedMap acqsSchedMap;
 
-    @Column(name = "OAUTH2_TOKEN_URL", nullable = false)
+    @Column(name = "oauth2_token_url", nullable = false)
     private String oauth2TokenUrl;
 
-    @Column(name = "OAUTH2_USER_INFO_URL")
+    @Column(name = "oauth2_user_info_url")
     private String oauth2UserInfoUrl;
 
-    @Column(name = "OAUTH2_GRANT_TYPE")
+    @Column(name = "oauth2_grant_type")
     private String oauth2GrantType;
 
-    @Column(name = "OAUTH2_CLIENT_ID", nullable = false, length = 150)
+    @Column(name = "oauth2_client_id", nullable = false, length = 150)
     private String oauth2ClientId;
 
-    @Column(name = "OAUTH2_CLIENT_SECRET_ENCRYPTED", nullable = false, length = 500)
+    @Column(name = "oauth2_client_secret_encrypted", nullable = false, length = 500)
     private String oauth2ClientSecretEncrypted;
 
-    @Column(name = "OAUTH2_USERNAME", nullable = false)
+    @Column(name = "oauth2_username", nullable = false)
     private String oauth2Username;
 
-    @Column(name = "OAUTH2_PASSWORD_ENCRYPTED", nullable = false, length = 500)
+    @Column(name = "oauth2_password_encrypted", nullable = false, length = 500)
     private String oauth2PasswordEncrypted;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "INSERT_TIMESTAMP", nullable = false)
+    @Column(name = "insert_timestamp", nullable = false)
     private Date insertTimestamp;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "UPDATE_TIMESTAMP", nullable = false)
+    @Column(name = "update_timestamp", nullable = false)
     private Date updateTimestamp;
 
     @PrePersist

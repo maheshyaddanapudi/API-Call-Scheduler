@@ -67,7 +67,7 @@ RUN chown -R scheduler:scheduler /appln
 USER scheduler
 
 # Moving the executable / build to the run location
-COPY --from=builder /tmp/APICallsScheduler/target/APICallsScheduler*.jar /appln/bin/scheduler/
+COPY --from=builder /tmp/APICallsScheduler/target/APICallsScheduler-2.2.4.RELEASE.jar /appln/bin/scheduler/
 
 # Creating the startup script, by passing the env variables to run the jar. Logs are written directly to continer logs.
 RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
@@ -87,7 +87,7 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   -DMYSQL_DATABASE_HOST=\$MYSQL_DATABASE_HOST \
   -DMYSQL_DATABASE_PORT=\$MYSQL_DATABASE_PORT \
   -DMARIADB4J_DIR=\$MARIADB4J_DIR \
-  -jar APICallsScheduler-$SCHEDULER_VERSION.jar" >> /appln/scripts/startup.sh
+  -jar APICallsScheduler-2.2.4.RELEASE.jar" >> /appln/scripts/startup.sh
 
 # Owning the executable scripts
 RUN sudo chown -R scheduler:scheduler /appln/scripts /appln/bin \

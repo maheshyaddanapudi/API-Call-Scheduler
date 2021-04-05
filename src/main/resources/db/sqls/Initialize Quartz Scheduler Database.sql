@@ -159,60 +159,60 @@ CREATE INDEX IDX_QRTZ_FT_JG ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,JOB_GROUP);
 CREATE INDEX IDX_QRTZ_FT_T_G ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP);
 CREATE INDEX IDX_QRTZ_FT_TG ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,TRIGGER_GROUP);
 
-CREATE TABLE `ACQS_SCHED_MAP` (
-  `MAPPING_ID` BIGINT(8) NOT NULL AUTO_INCREMENT,
-  `QRTZ_SCHED_ID` VARCHAR(150) NULL,
-  `SCHED_NAME` VARCHAR(100) NOT NULL,
-  `SCHED_DESC` VARCHAR(500) NULL,
-  `SCHED_API_ENDPOINT` VARCHAR(500) NOT NULL,
-  `SCHED_API_METHOD` VARCHAR(10) NOT NULL DEFAULT 'GET',
-  `SCHED_API_PAYLOAD` BLOB NULL,
-  `SCHED_CRON_EXPRESSION` VARCHAR(45) NOT NULL,
-  `SCHED_CURRENT_STATUS` VARCHAR(45) NOT NULL,
-  `SCHED_START_TIMESTAMP` TIMESTAMP NULL,
-  `SCHED_STOP_TIMESTAMP` TIMESTAMP NOT NULL,
-  `INSERT_TIMESTAMP` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  `UPDATE_TIMESTAMP` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`MAPPING_ID`),
-  UNIQUE INDEX `MAPPING_ID_UNIQUE` (`MAPPING_ID` ASC) ,
-  UNIQUE INDEX `SCHED_NAME_UNIQUE` (`SCHED_NAME` ASC) ,
-  UNIQUE INDEX `QRTZ_SCHED_ID_UNIQUE` (`QRTZ_SCHED_ID` ASC)
+create table `acqs_sched_map` (
+  `mapping_id` bigint(8) not null auto_increment,
+  `qrtz_sched_id` varchar(150) null,
+  `sched_name` varchar(100) not null,
+  `sched_desc` varchar(500) null,
+  `sched_api_endpoint` varchar(500) not null,
+  `sched_api_method` varchar(10) not null default 'get',
+  `sched_api_payload` blob null,
+  `sched_cron_expression` varchar(45) not null,
+  `sched_current_status` varchar(45) not null,
+  `sched_start_timestamp` timestamp null,
+  `sched_stop_timestamp` timestamp not null,
+  `insert_timestamp` timestamp not null default current_timestamp(),
+  `update_timestamp` timestamp not null default current_timestamp() on update current_timestamp(),
+  primary key (`mapping_id`),
+  unique index `mapping_id_unique` (`mapping_id` asc) ,
+  unique index `sched_name_unique` (`sched_name` asc) ,
+  unique index `qrtz_sched_id_unique` (`qrtz_sched_id` asc)
   );
 
-CREATE TABLE `ACQS_SCHED_OAUTH2_MAP` (
-  `AUTH_MAPPING_ID` BIGINT(8) NOT NULL AUTO_INCREMENT,
-  `MAPPING_ID` BIGINT(8) NOT NULL,
-  `OAUTH2_TOKEN_URL` VARCHAR(255) NOT NULL,
-  `OAUTH2_USER_INFO_URL` VARCHAR(255) NULL,
-  `OAUTH2_GRANT_TYPE` VARCHAR(25) NOT NULL DEFAULT 'password',
-  `OAUTH2_CLIENT_ID` VARCHAR(150) NOT NULL,
-  `OAUTH2_CLIENT_SECRET_ENCRYPTED` VARCHAR(500) NOT NULL,
-  `OAUTH2_USERNAME` VARCHAR(150) NOT NULL,
-  `OAUTH2_PASSWORD_ENCRYPTED` VARCHAR(500) NOT NULL,
-  `INSERT_TIMESTAMP` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  `UPDATE_TIMESTAMP` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`AUTH_MAPPING_ID`),
-  INDEX `MAPPING_ID_ACQS_SCHED_OAUTH2_MAP_FKEY_IDX` (`MAPPING_ID` ASC) ,
-   CONSTRAINT `MAPPING_ID_ACQS_SCHED_OAUTH2_MAP_FKEY`
-     FOREIGN KEY (`MAPPING_ID`)
-     REFERENCES `ACQS_SCHED_MAP` (`MAPPING_ID`)
-     ON DELETE CASCADE
-     ON UPDATE CASCADE);
+create table `acqs_sched_oauth2_map` (
+  `auth_mapping_id` bigint(8) not null auto_increment,
+  `mapping_id` bigint(8) not null,
+  `oauth2_token_url` varchar(255) not null,
+  `oauth2_user_info_url` varchar(255) null,
+  `oauth2_grant_type` varchar(25) not null default 'password',
+  `oauth2_client_id` varchar(150) not null,
+  `oauth2_client_secret_encrypted` varchar(500) not null,
+  `oauth2_username` varchar(150) not null,
+  `oauth2_password_encrypted` varchar(500) not null,
+  `insert_timestamp` timestamp not null default current_timestamp(),
+  `update_timestamp` timestamp not null default current_timestamp() on update current_timestamp(),
+  primary key (`auth_mapping_id`),
+  index `mapping_id_acqs_sched_oauth2_map_fkey_idx` (`mapping_id` asc) ,
+   constraint `mapping_id_acqs_sched_oauth2_map_fkey`
+     foreign key (`mapping_id`)
+     references `acqs_sched_map` (`mapping_id`)
+     on delete cascade
+     on update cascade);
 
-CREATE TABLE `ACQS_EXEC_HIST` (
-  `HISTORY_ID` BIGINT(8) NOT NULL AUTO_INCREMENT,
-  `MAPPING_ID` BIGINT(8) NOT NULL,
-  `QRTZ_EXEC_ID` VARCHAR(150) NULL,
-  `QRTZ_EXEC_STATUS` VARCHAR(45) NOT NULL DEFAULT 'INITIALIZED',
-  `QRTZ_EXEC_RESP_PAYLOAD_PAYLOAD` BLOB NULL,
-  `QRTZ_EXEC_LOG` VARCHAR(1000) NULL,
-  `INSERT_TIMESTAMP` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  `UPDATE_TIMESTAMP` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`HISTORY_ID`),
-  UNIQUE INDEX `HISTORY_ID_UNIQUE` (`HISTORY_ID` ASC) ,
-  INDEX `MAPPING_ID_ACQS_EXEC_HIST_FKEY_IDX` (`MAPPING_ID` ASC) ,
-  CONSTRAINT `MAPPING_ID_ACQS_EXEC_HIST_FKEY`
-    FOREIGN KEY (`MAPPING_ID`)
-    REFERENCES `ACQS_SCHED_MAP` (`MAPPING_ID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
+create table `acqs_exec_hist` (
+  `history_id` bigint(8) not null auto_increment,
+  `mapping_id` bigint(8) not null,
+  `qrtz_exec_id` varchar(150) null,
+  `qrtz_exec_status` varchar(45) not null default 'INITIALIZED',
+  `qrtz_exec_resp_payload_payload` blob null,
+  `qrtz_exec_log` varchar(1000) null,
+  `insert_timestamp` timestamp not null default current_timestamp(),
+  `update_timestamp` timestamp not null default current_timestamp() on update current_timestamp(),
+  primary key (`history_id`),
+  unique index `history_id_unique` (`history_id` asc) ,
+  index `mapping_id_acqs_exec_hist_fkey_idx` (`mapping_id` asc) ,
+  constraint `mapping_id_acqs_exec_hist_fkey`
+    foreign key (`mapping_id`)
+    references `acqs_sched_map` (`mapping_id`)
+    on delete cascade
+    on update cascade);

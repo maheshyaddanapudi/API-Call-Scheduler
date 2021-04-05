@@ -19,7 +19,7 @@ services:
         aliases:
           - mariadb
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-pRoot@1234' ]
       interval: 30s
       timeout: 60s
       retries: 10
@@ -50,7 +50,7 @@ services:
       SPRING_PROFILES_ACTIVE: basic,external-mysql
       USER_TIMEZONE: IST
     healthcheck:
-      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8880/actuatot/health"]
+      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8880/actuator/health"]
       interval: 30s
       timeout: 30s
       retries: 15

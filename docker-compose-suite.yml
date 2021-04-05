@@ -107,7 +107,7 @@ services:
       SPRING_PROFILES_ACTIVE: basic,external-mysql,external-oauth2
       USER_TIMEZONE: IST
     healthcheck:
-      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8880/actuatot/health"]
+      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8880/actuator/health"]
       interval: 30s
       timeout: 30s
       retries: 15

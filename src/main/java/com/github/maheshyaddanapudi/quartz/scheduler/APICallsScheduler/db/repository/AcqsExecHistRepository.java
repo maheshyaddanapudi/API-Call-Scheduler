@@ -15,6 +15,6 @@ public interface AcqsExecHistRepository extends JpaRepository<AcqsExecHist, Long
     AcqsExecHist findByQrtzExecId(String qrtzExecId);
 
     @Modifying
-    @Query(value = "DELETE FROM ACQS_EXEC_HIST WHERE UPDATE_TIMESTAMP < ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM acqs_exec_hist WHERE update_timestamp < ?1", nativeQuery = true)
     void deleteRecordsOlderThan(String dateBefore);
 }

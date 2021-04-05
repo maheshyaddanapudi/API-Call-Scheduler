@@ -76,13 +76,13 @@ SonarQube: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/meas
 | Docker   | ![Docker](https://github.com/maheshyaddanapudi/APICallsScheduler/workflows/Docker/badge.svg?branch=main) |
 | Docker Image CI   | ![Docker Image CI](https://github.com/maheshyaddanapudi/APICallsScheduler/workflows/Docker%20Image%20CI/badge.svg?branch=main) |
 
-Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/api-calls-scheduler" target="_blank">DockerHub here</a>
+Docker Image published to <a href="https://hub.docker.com/repository/docker/zzzmahesh/APICallsScheduler" target="_blank">DockerHub here</a>
 
 Image is equipped with basic tools like vim, curl, wget, net-tools(telnet), iputils-ping
 
 To pull the image :
 
-	docker pull zzzmahesh/api-calls-scheduler
+	docker pull zzzmahesh/APICallsScheduler
 
 ## Run API Calls Scheduler : Java
 
@@ -101,7 +101,7 @@ To pull the image :
         This profile holds the basic startup configuration needed for the Spring Boot Wrapper.
         
     2) mariadb4j
-        This profile configures and startsup Embedded MariaDB4J and the database details are passed on to Integrated Quartz Sscheduler.
+        This profile configures and startsup Embedded MariaDB4J and the database details are passed on to Integrated ansible Server.
         By default, the database is non-persistent. Set MARIADB4J_DIR parameter for enabling a persistent database. More details are discussed in configurations section.
         Configurations available are as below. Shown are default values.
             MYSQL_DATABASE: quartz
@@ -128,7 +128,7 @@ To pull the image :
 
 ## Application URLs
 
-		http://localhost:8880/ - To access the Swagger pertaining to APIs for API Call Scheduler, as redirection is taken care to OpenAPI UI.
+		http://localhost:8880/ - To access the Swagger pertaining to APIs for ansible-docs, as redirection is taken care to OpenAPI UI.
 
 ## Run API Calls Scheduler : Docker
 
@@ -138,7 +138,7 @@ To run the container :
 
 Few other examples / ways / configurations to run the container as:
 
-    1) Running with external MySQL - The database is decoupled. The Scheduler data is persistent as it uses MySQL Database.
+    1) Running with external MySQL - The database is decoupled. The Ansible Docs data is persistent as it uses MySQL Database.
 
         docker run --name APICallsScheduler -p 8880:8880 \
             -e SPRING_PROFILES_ACTIVE=basic,mysql \
