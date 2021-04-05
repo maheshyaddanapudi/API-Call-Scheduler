@@ -134,7 +134,7 @@ To pull the image :
 
 To run the container :
 
-    docker run --name APICallsScheduler -p 8880:8880 -d zzzmahesh/APICallsScheduler:latest
+    docker run --name APICallsScheduler -p 8880:8880 -d zzzmahesh/api-calls-scheduler:latest
 
 Few other examples / ways / configurations to run the container as:
 
@@ -146,7 +146,7 @@ Few other examples / ways / configurations to run the container as:
             -e MYSQL_DATABASE_PORT=3306 \
             -e MYSQL_USER=quartz \
             -e MYSQL_PASSWORD=quartz \
-            -d zzzmahesh/quartz-docs-boot:latest
+            -d zzzmahesh/api-calls-scheduler:latest
 
     Similarly any combination of profile and configurations can be used.
 
