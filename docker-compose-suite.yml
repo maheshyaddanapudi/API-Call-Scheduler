@@ -75,7 +75,7 @@ services:
         aliases:
           - mariadb
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-pRoot@1234' ]
       interval: 30s
       timeout: 60s
       retries: 10
@@ -103,7 +103,7 @@ services:
       MYSQL_DATABASE: quartz
       MYSQL_USER: quartz
       MYSQL_PASSWORD: Quartz@1234
-      OAUTH2_USER_INFO_URL: http://keycloak:9990/auth/realms/conductor/protocol/openid-connect/userinfo
+      OAUTH2_USER_INFO_URL: http://keycloak:8080/auth/realms/conductor/protocol/openid-connect/userinfo
       SPRING_PROFILES_ACTIVE: basic,external-mysql,external-oauth2
       USER_TIMEZONE: IST
     healthcheck:

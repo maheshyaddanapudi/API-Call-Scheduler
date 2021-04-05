@@ -218,6 +218,7 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                     acqsExecHist = this.acqsExecHistRepository.saveAndFlush(acqsExecHist);
 
                 } catch(HttpClientErrorException e) {
+                    e.printStackTrace();
 
                     if(e.getStatusCode().compareTo(HttpStatus.CONFLICT) == 0)
                         log.warn("-- triggerWorkflow\n"+e.getMessage());
@@ -231,6 +232,7 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                     acqsExecHist = this.acqsExecHistRepository.saveAndFlush(acqsExecHist);
                 }
                 catch (Exception e){
+                    e.printStackTrace();
                     runLog = runLog+e.getMessage();
 
                     acqsExecHist.setQuartzExecutionStatus("FATAL");

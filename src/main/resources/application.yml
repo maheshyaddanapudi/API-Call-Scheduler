@@ -2,4 +2,4 @@ spring:
   profiles:
     active:
       - basic
-      - embedded-mariadb4j
+      - external-mysql

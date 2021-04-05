@@ -140,6 +140,8 @@ public class OAuth2ResourceServerConfiguration extends ResourceServerConfigurerA
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, Constants.GENERIC_ROOT_URL).permitAll()
+                .antMatchers(HttpMethod.GET, Constants.HC_URL).permitAll()
+                .antMatchers("/userinfo").authenticated()
                 .anyRequest().authenticated()
                 .and().cors().disable().httpBasic().disable()
                 .exceptionHandling()

@@ -142,6 +142,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 		
     http.authorizeRequests()
     	.antMatchers(HttpMethod.GET, Constants.GENERIC_ROOT_URL).permitAll()
+		.antMatchers(HttpMethod.GET, Constants.HC_URL).permitAll()
+		.antMatchers("/userinfo").authenticated()
 		.antMatchers(Constants.GENERIC_API_URL).authenticated()
     	.anyRequest().authenticated()
 		.and().cors().disable().httpBasic().disable()

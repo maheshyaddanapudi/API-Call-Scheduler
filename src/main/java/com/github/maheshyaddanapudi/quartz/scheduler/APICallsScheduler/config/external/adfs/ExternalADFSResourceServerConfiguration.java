@@ -140,8 +140,9 @@ public class ExternalADFSResourceServerConfiguration extends ResourceServerConfi
 		
     http.authorizeRequests()
     	.antMatchers(HttpMethod.GET, Constants.GENERIC_ROOT_URL).permitAll()
-		.antMatchers(Constants.GENERIC_API_URL).authenticated()
+		.antMatchers(HttpMethod.GET, Constants.HC_URL).permitAll()
 		.antMatchers("/userinfo").authenticated()
+		.antMatchers(Constants.GENERIC_API_URL).authenticated()
     	.anyRequest().authenticated()
 		.and().cors().disable().httpBasic().disable()
 				.exceptionHandling()

@@ -17,6 +17,7 @@ public class Constants {
     public static final String RESOURCE_ACCESS = "resource_access";
 
     public static final String GENERIC_ROOT_URL = "/**";
+    public static final String HC_URL = "/actuator/health";
     public static final String GENERIC_OAUTH_URL = "/oauth/**";
     public static final String GENERIC_API_URL = "/api/**";
 
