@@ -87,7 +87,7 @@ RUN echo "#!/bin/bash" > /appln/scripts/startup.sh \
   -DMYSQL_DATABASE_HOST=\$MYSQL_DATABASE_HOST \
   -DMYSQL_DATABASE_PORT=\$MYSQL_DATABASE_PORT \
   -DMARIADB4J_DIR=\$MARIADB4J_DIR \
-  -jar APICallsScheduler-$scheduler_VERSION.jar" >> /appln/scripts/startup.sh
+  -jar APICallsScheduler-$SCHEDULER_VERSION.jar" >> /appln/scripts/startup.sh
 
 # Owning the executable scripts
 RUN sudo chown -R scheduler:scheduler /appln/scripts /appln/bin \
