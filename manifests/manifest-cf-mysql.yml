@@ -1,0 +1,10 @@
+---
+applications:
+  - name: scheduler
+    memory: 2048M
+    random-route: true
+    path: ../target/APICallsScheduler-2.2.24.RELEASE.jar
+    env:
+      SPRING_PROFILES_ACTIVE: cloud,cf-mysql,embedded-oauth2
+    services:
+      - cf-mysql-service

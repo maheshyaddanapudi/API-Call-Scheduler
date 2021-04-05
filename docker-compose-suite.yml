@@ -81,6 +81,37 @@ services:
       retries: 10
     volumes:
       - mariadb_data:/var/lib/mysql
+  scheduler:
+    image: api-calls-scheduler:latest
+    build:
+      context: .
+    restart: on-failure
+    links:
+      - mariadb
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      api-call-scheduler-nw:
+        aliases:
+          - scheduler
+    ports:
+      - 8880:8880
+    environment:
+      MYSQL_DATABASE_HOST: mariadb
+      MYSQL_DATABASE_PORT: 3306
+      MYSQL_DATABASE: quartz
+      MYSQL_USER: quartz
+      MYSQL_PASSWORD: Quartz@1234
+      OAUTH2_USER_INFO_URL: http://keycloak:9990/auth/realms/conductor/protocol/openid-connect/userinfo
+      SPRING_PROFILES_ACTIVE: basic,external-mysql,external-oauth2
+      USER_TIMEZONE: IST
+    healthcheck:
+      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8880/actuatot/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 15
+    mem_limit: "1024000000"
 volumes:
   keycloak_realm_data:
     driver: local

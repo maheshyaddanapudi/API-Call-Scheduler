@@ -1,0 +1,8 @@
+---
+applications:
+  - name: scheduler
+    memory: 4096M
+    random-route: true
+    path: ../target/APICallsScheduler-2.2.24.RELEASE.jar
+    env:
+      SPRING_PROFILES_ACTIVE: basic,embedded-mariadb4j,embedded-oauth2

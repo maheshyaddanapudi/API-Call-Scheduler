@@ -1,70 +1,66 @@
 version: '2.2'
 
 services:
-  postgres:
-    image: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+  mariadb:
+    image: mariadb:latest
+    restart: on-failure
     environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: Keycloak@1234
-      LOGSPOUT: ignore
-    mem_limit: "512000000"
+      MYSQL_ROOT_PASSWORD: Root@1234
+      MYSQL_DATABASE: quartz
+      MYSQL_USER: quartz
+      MYSQL_PASSWORD: Quartz@1234
+      MYSQL_INITDB_SKIP_TZINFO: NONE
     ports:
-      - 5432:5432
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U keycloak -d keycloak"]
-      interval: 30s
-      timeout: 15s
-      retries: 10
+      - 3306:3306
+      - 33060:33060
+    mem_limit: "512000000"
     networks:
-      keycloak-nw:
+      api-call-scheduler-nw:
         aliases:
-          - postgres
-  keycloak:
-    image: jboss/keycloak:latest
+          - mariadb
     healthcheck:
-      test: ["CMD", "curl", "-I", "-XGET", "http://localhost:8080/auth/realms/master"]
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 30s
+      timeout: 60s
+      retries: 10
+    volumes:
+      - mariadb_data:/var/lib/mysql
+  scheduler:
+    image: api-calls-scheduler:latest
+    build:
+      context: .
+    restart: on-failure
+    links:
+      - mariadb
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      api-call-scheduler-nw:
+        aliases:
+          - scheduler
+    ports:
+      - 8880:8880
+    environment:
+      MYSQL_DATABASE_HOST: mariadb
+      MYSQL_DATABASE_PORT: 3306
+      MYSQL_DATABASE: quartz
+      MYSQL_USER: quartz
+      MYSQL_PASSWORD: Quartz@1234
+      SPRING_PROFILES_ACTIVE: basic,external-mysql
+      USER_TIMEZONE: IST
+    healthcheck:
+      test: ["CMD", "curl","-I" ,"-XGET", "http://localhost:8880/actuatot/health"]
       interval: 30s
       timeout: 30s
       retries: 15
     mem_limit: "1024000000"
-    environment:
-      DB_VENDOR: POSTGRES
-      DB_ADDR: postgres
-      DB_DATABASE: keycloak
-      DB_USER: keycloak
-      DB_SCHEMA: public
-      DB_PASSWORD: Keycloak@1234
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Admin@1234
-      LOGSPOUT: ignore
-      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
-      #JDBC_PARAMS: "ssl=true"
-    volumes:
-      - keycloak_realm_data:/tmp/migration
-    command: ["-b 0.0.0.0"]
-    ports:
-      - 9990:8080
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      keycloak-nw:
-        aliases:
-          - keycloak
-      api-call-scheduler-nw:
-        aliases:
-          - keycloak
 volumes:
-  postgres_data:
-  keycloak_realm_data:
+  mariadb_data:
     driver: local
     driver_opts:
       type: none
-      device: $PWD/keycloak/migration
+      device: $PWD/container/persistence/mariadb
       o: bind
 networks:
-  keycloak-nw:
   api-call-scheduler-nw:
