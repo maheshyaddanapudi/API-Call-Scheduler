@@ -47,7 +47,13 @@ public class QuartzConfig {
 
         Properties properties = new Properties();
         properties.setProperty("org.quartz.scheduler.instanceName", "API-Call-Quartz-Scheduler-1");
-        properties.setProperty("org.quartz.scheduler.instanceId", "API-Call-Quartz-Scheduler-Instante-Id-1");
+        properties.setProperty("org.quartz.scheduler.instanceId", "AUTO");
+        properties.setProperty("org.quartz.threadPool.threadCount","100");
+
+        properties.setProperty("org.quartz.jobStore.isClustered","true");
+        properties.setProperty("org.quartz.jobStore.clusterCheckinInterval","20000");
+        properties.setProperty("org.quartz.jobStore.driverDelegateClass","org.quartz.impl.jdbcjobstore.StdJDBCDelegate");
+        properties.setProperty("org.quartz.jobStore.class","org.quartz.impl.jdbcjobstore.JobStoreTX");
 
         schedulerFactory.setOverwriteExistingJobs(true);
         schedulerFactory.setAutoStartup(true);

@@ -28,10 +28,19 @@ spring:
   quartz:
     job-store-type: jdbc
     properties:
-      org:
-        quartz:
-          threadPool:
-            threadCount: 1000
+      org.quartz.scheduler:
+        instanceName: ${sping.application.name}
+        instanceId: AUTO
+      org.quartz.threadPool:
+        threadCount: 1000
+      org.quartz.jobStore:
+        class: org.quartz.impl.jdbcjobstore.JobStoreTX
+        driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+        useProperties: true
+        misfireThreshold: 60000
+        tablePrefix: QRTZ_
+        isClustered: true
+        clusterCheckinInterval: 20000
     wait-for-jobs-to-complete-on-shutdown: true
     scheduler-name: ${spring.application.name}
   encryption:
