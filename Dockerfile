@@ -95,7 +95,7 @@ RUN sudo chown -R scheduler:scheduler /appln/scripts /appln/bin \
     && sudo chmod -R +w /appln/data
 
 # Exposing the necessary ports
-EXPOSE 8080
+EXPOSE 8880
 
 # Enabling the startup
 CMD ["/appln/scripts/startup.sh"]
