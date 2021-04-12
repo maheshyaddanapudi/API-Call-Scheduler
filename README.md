@@ -29,8 +29,6 @@ The idea is to build a single production grade Spring Boot Jar with the followin
 To avoid the pain points of
 
       • Perform API calls at partical schedules of the day manually
-
-      • Perform API calls at partical schedules of the day manually
       
       • Housing external database engine for API Calls Quartz Scheduler persistence unit.
 
