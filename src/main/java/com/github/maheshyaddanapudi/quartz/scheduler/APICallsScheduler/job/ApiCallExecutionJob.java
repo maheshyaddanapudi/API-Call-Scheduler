@@ -10,6 +10,7 @@ import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.db.reposi
 import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.dto.downstream.token.AccessTokenDTO;
 import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.service.downstream.rest.oauth2.DownstreamOAuthLoginService;
 import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.service.internal.cipher.EncryptionDecryptionService;
+import com.google.gson.Gson;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobDataMap;
@@ -23,7 +24,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.UUID;
+
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
 
 @Component
 @Slf4j
@@ -103,10 +108,21 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
 
                 try {
 
+                    if(null!=acqsSchedMap.getSchedApiHeaders())
+                    {
+                        Gson gson = new Gson();
+
+                        Type type = new TypeToken<Map<String, String>>(){}.getType();
+                        Map<String, String> headersMap = gson.fromJson(new String(acqsSchedMap.getSchedApiHeaders()), type);
+
+                        for (Map.Entry<String, String> set : headersMap.entrySet()) {
+                            headers.set(set.getKey(), set.getValue());
+                        }
+                    }
+
                     switch (acqsSchedMap.getSchedApiMethod()){
                         case "GET":
                             HttpEntity requestGet= new HttpEntity( acqsSchedMap.getSchedApiPayload(), headers );
-                            headers.setContentType(MediaType.APPLICATION_JSON);
 
                             log.debug("## GET API Request\n"+acqsSchedMap.getSchedApiEndpoint());
                             runLog = runLog+"## GET API Request\n\t"+acqsSchedMap.getSchedApiEndpoint()+"\n";
@@ -126,7 +142,6 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                             break;
                         case "POST":
                             HttpEntity requestPost= new HttpEntity( acqsSchedMap.getSchedApiPayload(), headers );
-                            headers.setContentType(MediaType.APPLICATION_JSON);
 
                             log.debug("## POST API Request\n"+requestPost.getBody());
                             runLog = runLog+"## POST API Request\n\t"+requestPost.getBody()+"\n";
@@ -146,7 +161,6 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                             break;
                         case "PUT":
                             HttpEntity requestPut= new HttpEntity( acqsSchedMap.getSchedApiPayload(), headers );
-                            headers.setContentType(MediaType.APPLICATION_JSON);
 
                             log.debug("## PUT API Request\n"+requestPut.getBody());
                             runLog = runLog+"## PUT API Request\n\t"+requestPut.getBody()+"\n";
@@ -166,7 +180,6 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                             break;
                         case "PATCH":
                             HttpEntity requestPatch= new HttpEntity( acqsSchedMap.getSchedApiPayload(), headers );
-                            headers.setContentType(MediaType.APPLICATION_JSON);
 
                             log.debug("## PATCH API Request\n"+requestPatch.getBody());
                             runLog = runLog+"## PATCH API Request\n\t"+requestPatch.getBody()+"\n";
@@ -186,7 +199,6 @@ public class ApiCallExecutionJob extends QuartzJobBean implements Serializable {
                             break;
                         case "DELETE":
                             HttpEntity requestDelete= new HttpEntity( acqsSchedMap.getSchedApiPayload(), headers );
-                            headers.setContentType(MediaType.APPLICATION_JSON);
 
                             log.debug("## DELETE API Request\n"+requestDelete.getBody());
                             runLog = runLog+"## DELETE API Request\n\t"+requestDelete.getBody()+"\n";

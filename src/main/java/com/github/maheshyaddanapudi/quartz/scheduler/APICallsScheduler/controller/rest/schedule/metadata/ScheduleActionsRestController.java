@@ -75,6 +75,8 @@ public class ScheduleActionsRestController {
                 scheduleDetails.setScheduleId(scheduleDetailsBuffer.getQrtzSchedId());
                 if(null!=scheduleDetailsBuffer.getSchedApiPayload())
                     scheduleDetails.setApiPayload(new String(scheduleDetailsBuffer.getSchedApiPayload()));
+                if(null!=scheduleDetailsBuffer.getSchedApiHeaders())
+                    scheduleDetails.setApiHeaders(new String(scheduleDetailsBuffer.getSchedApiHeaders()));
 
                 ScheduleOAuth2DetailsComponent scheduleOAuth2DetailsComponent = this.scheduleMapper.mapScheduleOAuth2DetailsComponentToDto(this.apiCallQuartzSchedulerService.findSchedOAuth2Map(schedule));
                 if(null!=scheduleOAuth2DetailsComponent)
@@ -109,6 +111,8 @@ public class ScheduleActionsRestController {
                 scheduleDetails.setScheduleId(scheduleDetailsBuffer.getQrtzSchedId());
                 if(null!=scheduleDetailsBuffer.getSchedApiPayload())
                     scheduleDetails.setApiPayload(new String(scheduleDetailsBuffer.getSchedApiPayload()));
+                if(null!=scheduleDetailsBuffer.getSchedApiHeaders())
+                    scheduleDetails.setApiHeaders(new String(scheduleDetailsBuffer.getSchedApiHeaders()));
 
                 ScheduleOAuth2DetailsComponent scheduleOAuth2DetailsComponent = this.scheduleMapper.mapScheduleOAuth2DetailsComponentToDto(this.apiCallQuartzSchedulerService.findSchedOAuth2Map(acqsSchedMap));
                 if(null!=scheduleOAuth2DetailsComponent)

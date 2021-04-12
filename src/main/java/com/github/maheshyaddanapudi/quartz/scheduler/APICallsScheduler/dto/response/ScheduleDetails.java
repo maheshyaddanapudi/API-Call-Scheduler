@@ -17,6 +17,7 @@ public class ScheduleDetails {
     private String apiEndPoint;
     private String apiMethod;
     private String apiPayload;
+    private String apiHeaders;
     private String scheduleName;
     private String scheduleDesc;
     private String cronExpression;

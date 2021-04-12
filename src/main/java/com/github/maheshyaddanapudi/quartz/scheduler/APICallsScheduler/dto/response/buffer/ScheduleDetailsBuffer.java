@@ -18,6 +18,7 @@ public class ScheduleDetailsBuffer {
     private String schedApiEndpoint;
     private String schedApiMethod;
     private byte[] schedApiPayload;
+    private byte[] schedApiHeaders;
     private String schedCronExpression;
     private String schedCurrentStatus;
     private Date schedStartTimestamp;

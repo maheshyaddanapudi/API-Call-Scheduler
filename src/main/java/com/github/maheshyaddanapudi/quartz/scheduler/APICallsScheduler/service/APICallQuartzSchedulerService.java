@@ -8,6 +8,7 @@ import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.db.reposi
 import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.dto.request.schedule.ScheduleRequest;
 import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.dto.response.embedded.oauth2.BaseResponseDTO;
 import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.service.internal.cipher.EncryptionDecryptionService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,13 @@ public class APICallQuartzSchedulerService {
                 if(null!=request.getStartDate())
                     acqsSchedMap.setSchedStartTimestamp(dafeFormat.parse(request.getStartDate()));
                 acqsSchedMap.setSchedStopTimestamp(dafeFormat.parse(request.getEndDate()));
+
+                if(null!=request.getApiHeaders() && !request.getApiHeaders().isEmpty())
+                {
+                    Gson gson = new Gson();
+
+                    acqsSchedMap.setSchedApiHeaders(gson.toJson(request.getApiHeaders()).getBytes());
+                }
 
                 acqsSchedMap = this.acqsSchedMapRepository.saveAndFlush(acqsSchedMap);
                 if(null!=acqsSchedMap && acqsSchedMap.getMappingId() > 0) {
@@ -205,6 +213,13 @@ public class APICallQuartzSchedulerService {
                 if(null!=request.getStartDate())
                     acqsSchedMap.setSchedStartTimestamp(dafeFormat.parse(request.getStartDate()));
                 acqsSchedMap.setSchedStopTimestamp(dafeFormat.parse(request.getEndDate()));
+
+                if(null!=request.getApiHeaders() && !request.getApiHeaders().isEmpty())
+                {
+                    Gson gson = new Gson();
+
+                    acqsSchedMap.setSchedApiHeaders(gson.toJson(request.getApiHeaders()).getBytes());
+                }
 
                 acqsSchedMap = this.acqsSchedMapRepository.saveAndFlush(acqsSchedMap);
                 if(null!=acqsSchedMap && acqsSchedMap.getMappingId() > 0) {

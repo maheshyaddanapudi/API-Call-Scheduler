@@ -37,6 +37,10 @@ public class AcqsSchedMap {
     @Column(name="sched_api_payload", nullable = true, length=100000)
     private byte[] schedApiPayload;
 
+    @Lob
+    @Column(name="sched_api_headers", nullable = true, length=100000)
+    private byte[] schedApiHeaders;
+
     @Column(name = "sched_cron_expression", length = 45, nullable = false, unique=false)
     private String schedCronExpression;
 

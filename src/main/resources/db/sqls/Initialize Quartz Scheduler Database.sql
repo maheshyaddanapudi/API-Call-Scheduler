@@ -167,6 +167,7 @@ create table `acqs_sched_map` (
   `sched_api_endpoint` varchar(500) not null,
   `sched_api_method` varchar(10) not null default 'get',
   `sched_api_payload` blob null,
+  `sched_api_headers` blob null,
   `sched_cron_expression` varchar(45) not null,
   `sched_current_status` varchar(45) not null,
   `sched_start_timestamp` timestamp null,

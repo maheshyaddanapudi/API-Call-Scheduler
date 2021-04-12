@@ -4,6 +4,8 @@ import com.github.maheshyaddanapudi.quartz.scheduler.APICallsScheduler.dto.reque
 import lombok.*;
 import org.springframework.lang.Nullable;
 
+import java.util.Map;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +19,8 @@ public class ScheduleRequest {
     private String apiMethod;
     @Nullable
     private String apiPayload;
+    @Nullable
+    private Map<String, Object> apiHeaders;
     @NonNull
     private String scheduleName;
     @Nullable
